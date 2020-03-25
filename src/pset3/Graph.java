@@ -44,6 +44,11 @@ public class Graph {
 		// your code goes here
 		//...
 
+		// Check don't have illegal arguments (int can't be null)
+		if (from < 0 || to < 0 || from >= numNodes || to >= numNodes) {
+			throw new IllegalArgumentException();
+		}
+
 		// Set the entry edges[from][to] to true
 		edges[from][to] = true;
 	}
@@ -61,10 +66,11 @@ public class Graph {
 		// your code goes here
 		//...
 
+		// Check if sources or targets are empty sets
+		if (sources.isEmpty() || targets.isEmpty()) return false;
+
 		// Check conditions 1 and 2
-		if (hasIllegalNodes(sources) || hasIllegalNodes(targets)) {
-			return false;
-		}
+		if (hasIllegalNodes(sources) || hasIllegalNodes(targets)) return false;
 
 		/*
 		 * For each target, iterate over all sources until we find a source that can reach the target, or we run out of
@@ -86,12 +92,12 @@ public class Graph {
 				q.add(source);
 				//visitedNodes.add(source);
 
-				// Check if source node is the target and, it has an edge to itself
-				/*if (source == target && edges[source][source]) {
+				// Check if source node is the target
+				if (source == target) {
 					// The target is reachable from the current source
 					targetReachable = true;
 					break sourcesLoop;  // Move to the next target
-				}*/
+				}
 
 				while(!q.isEmpty()) {
 					visiting = q.remove();  // Visit the node in the queue and de-queue it
@@ -140,76 +146,5 @@ public class Graph {
 			}
 		}
 		return false;
-	}
-
-	public static void main(String[] args) {
-		// Constructor
-		Graph G = new Graph(4);
-		System.out.println("Graph without edges: " + G.toString());
-
-		// addEdge()
-		G.addEdge(0, 1);
-		G.addEdge(0, 2);
-		G.addEdge(1, 3);
-		G.addEdge(1, 2);
-		G.addEdge(2, 2);
-		System.out.println("Graph with edges: " + G.toString());
-
-		// hasIllegalNodes()
-		Set<Integer> N = new HashSet<Integer>();
-		N.add(0);
-		N.add(1);
-		N.add(2);
-		N.add(3);
-		System.out.println("Set N: " + N.toString());
-		System.out.println("Has illegal nodes? " + G.hasIllegalNodes(N));
-		N.add(4);
-		System.out.println("Set N: " + N.toString());
-		System.out.println("Has illegal nodes? " + G.hasIllegalNodes(N));
-
-		// reachable()
-		Set<Integer> sources = new HashSet<Integer>();
-		sources.add(0);
-		Set<Integer> targets = new HashSet<Integer>();
-		targets.add(1);
-		targets.add(2);
-		targets.add(3);
-		sources.add(2);
-		System.out.println("Set sources: " + sources.toString());
-		System.out.println("Set targets: " + targets.toString());
-		System.out.println("Are targets reachable from sources? " + G.reachable(sources, targets));
-		targets.add(0);
-		System.out.println("Set sources: " + sources.toString());
-		System.out.println("Set targets: " + targets.toString());
-		System.out.println("Are targets reachable from sources? " + G.reachable(sources, targets));
-		sources.remove(0);
-		sources.add(2);
-		targets.remove(2);
-		System.out.println("Set sources: " + sources.toString());
-		System.out.println("Set targets: " + targets.toString());
-		System.out.println("Are targets reachable from sources? " + G.reachable(sources, targets));
-		targets.remove(0);
-		targets.remove(1);
-		targets.remove(3);
-		targets.add(2);
-		System.out.println("Set sources: " + sources.toString());
-		System.out.println("Set targets: " + targets.toString());
-		System.out.println("Are targets reachable from sources? " + G.reachable(sources, targets));
-		sources.remove(2);
-		sources.add(1);
-		targets.remove(2);
-		targets.add(1);
-		System.out.println("Set sources: " + sources.toString());
-		System.out.println("Set targets: " + targets.toString());
-		System.out.println("Are targets reachable from sources? " + G.reachable(sources, targets));
-		Graph G_alt = new Graph(4);
-		G_alt.addEdge(0, 1);
-		G_alt.addEdge(1, 3);
-		G_alt.addEdge(1, 2);
-		G_alt.addEdge(2, 0);
-		System.out.println("Graph with edges: " + G_alt.toString());
-		System.out.println("Set sources: " + sources.toString());
-		System.out.println("Set targets: " + targets.toString());
-		System.out.println("Are targets reachable from sources? " + G_alt.reachable(sources, targets));
 	}
 }
