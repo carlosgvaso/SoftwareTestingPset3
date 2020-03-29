@@ -22,6 +22,11 @@ public class Graph {
 		// your code goes here
 		// ...
 
+		// Check don't have illegal arguments (int can't be null)
+		if (size < 0) { // Size should be positive
+			throw new IllegalArgumentException();
+		}
+
 		// Initialize edges
 		edges = new boolean[numNodes][numNodes];
 		for (boolean[] row : edges) {
@@ -45,7 +50,7 @@ public class Graph {
 		//...
 
 		// Check don't have illegal arguments (int can't be null)
-		if (from < 0 || to < 0 || from >= numNodes || to >= numNodes) {
+		if (from < 0 || to < 0 || from >= numNodes || to >= numNodes) { // Nodes can only be from 0 to numNodes-1
 			throw new IllegalArgumentException();
 		}
 

@@ -31,9 +31,19 @@ public class GraphTester {
 
 	@Test
 	public void tae1() {
+		// Test we can create a graph with negative size
+		boolean exceptionThrown = false;
+
+		try {
+			Graph g = new Graph(-1);
+		} catch (IllegalArgumentException e) {
+			exceptionThrown = true;
+		}
+		assertTrue(exceptionThrown);
+
 		// Test we can't add negative nodes in the `to` argument (illegal argument exception)
 		Graph g = new Graph(3);
-		boolean exceptionThrown = false;
+		exceptionThrown = false;
 
 		try {
 			g.addEdge(0, -1);
@@ -129,8 +139,6 @@ public class GraphTester {
 		assertEquals(g1, g2);
 		assertEquals(g2, g1);
 	}
-
-	// TODO: Search for other interesting cases to test `addEdge()`
 
 	// tests for method "reachable" in class "Graph"
 	@Test
@@ -445,6 +453,4 @@ public class GraphTester {
 		targets.add(3);
 		assertFalse(g.reachable(sources, targets));
 	}
-
-	// TODO: Search for other interesting cases to test `reachable()`
 }
