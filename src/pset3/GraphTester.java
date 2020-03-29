@@ -31,7 +31,7 @@ public class GraphTester {
 
 	@Test
 	public void tae1() {
-		// Test we can create a graph with negative size
+		// Test we can't create a graph with negative size
 		boolean exceptionThrown = false;
 
 		try {
@@ -54,10 +54,13 @@ public class GraphTester {
 		assertEquals(g.toString(), "numNodes: 3\nedges: [[false, false, false], [false, false, false], "
 				+ "[false, false, false]]");
 		//System.out.println(g);
+	}
 
+		@Test
+		public void tae2() {
 		// Test we can't add negative nodes in the `from` argument (illegal argument exception)
-		g = new Graph(3);
-		exceptionThrown = false;
+		Graph g = new Graph(3);
+		boolean exceptionThrown = false;
 
 		try {
 			g.addEdge(-2, 0);
@@ -71,7 +74,7 @@ public class GraphTester {
 	}
 
 	@Test
-	public void tae2() {
+	public void tae3() {
 		// Test we can't add nodes >= numNodes in the `to` argument (illegal arguments)
 		Graph g = new Graph(4);
 		boolean exceptionThrown = false;
@@ -86,10 +89,13 @@ public class GraphTester {
 				+ "[false, false, false, false], [false, false, false, false], "
 				+ "[false, false, false, false]]");
 		//System.out.println(g);
+	}
 
+	@Test
+	public void tae4() {
 		// Test we can't add nodes >= numNodes in the `from` argument (illegal arguments)
-		g = new Graph(4);
-		exceptionThrown = false;
+		Graph g = new Graph(4);
+		boolean exceptionThrown = false;
 
 		try {
 			g.addEdge(5, 0);
@@ -104,7 +110,7 @@ public class GraphTester {
 	}
 
 	@Test
-	public void tae3() {
+	public void tae5() {
 		// Test we can add nodes that point to themselves
 		Graph g = new Graph(1);
 		g.addEdge(0, 0);
@@ -112,7 +118,7 @@ public class GraphTester {
 	}
 
 	@Test
-	public void tae4() {
+	public void tae6() {
 		// Test we can add cycles
 		Graph g = new Graph(3);
 		g.addEdge(0, 1);
@@ -124,7 +130,7 @@ public class GraphTester {
 	}
 
 	@Test
-	public void tae5() {
+	public void tae7() {
 		// Adding the same edges to empty graphs creates the same graph every time
 		Graph g1 = new Graph(3);
 		g1.addEdge(0, 1);
